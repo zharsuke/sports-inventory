@@ -3,41 +3,20 @@
         <div class="flex-1 gap-3">
             <a href="" class="text-xl font-bold">Home</a>
         </div>
-        <div class="hidden sm:block flex gap-4">
-            <a (click)="authApiService.logout()" class="cursor-pointer">Logout</a>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal px-1">
+                <li>
+                    <a routerLink="/admin/users" routerLinkActive="active" class="cursor-pointer">Users</a>
+                </li>
+                <li>
+                    <a routerLink="/admin/items" routerLinkActive="active" class="cursor-pointer">Items</a>
+                </li>
+                <li>
+                    <a (click)="authApiService.logout()" class="cursor-pointer">Logout</a>
+                </li>
+            </ul>
         </div>
     </div>
 
-    <table class="table border border-primary border-dashed rounded-md">
-        <thead>
-            <tr class="border border-primary border-dashed">
-                <th>id</th>
-                <th>name</th>
-                <th>amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of items" class="hover">
-                <td>{{ item.id }}</td>
-                <td>{{ item.name }}</td>
-                <td>{{ item.amount }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="my-5 flex justify-end">
-        <div class="join grid grid-cols-2 gap-2">
-            <button 
-                class="join-item btn btn-sm btn-outline" 
-                [disabled]="currentPage === 1"
-                (click)="onPageChange(currentPage - 1)">
-                Previous
-            </button>
-            <button 
-                class="join-item btn btn-sm btn-outline"
-                (click)="onPageChange(currentPage + 1)">
-                Next
-            </button>
-        </div>
-        <span class="ml-4">Page {{ currentPage }}</span>
-    </div>
+    <h1 class="text-xl">HOME!!!</h1>
 </div>

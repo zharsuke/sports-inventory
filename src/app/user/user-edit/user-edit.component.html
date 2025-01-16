@@ -1,0 +1,24 @@
+<div class="flex justify-center items-center min-h-screen">
+    <div class="p-8 rounded shadow-md w-full max-w-md border-primary border border-dashed rounded-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">Edit User</h2>
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+        <div class="mb-4">
+          <label class="block">Username</label>
+          <input type="text" formControlName="username" class="input input-bordered w-full" placeholder="Username" />
+        </div>
+        <div class="mb-4">
+          <label class="block">Email</label>
+          <input type="email" formControlName="email" class="input input-bordered w-full" placeholder="Email" />
+        </div>
+        <div class="mb-4">
+          <label class="block">Password</label>
+          <input type="password" formControlName="password" class="input input-bordered w-full" placeholder="Password" />
+        </div>
+        <div class="mb-4">
+          <label class="block">Role</label>
+          <input type="text" formControlName="role" class="input input-bordered w-full" placeholder="Role" />
+        </div>
+        <button type="submit" class="btn btn-primary w-full text-white">Update User</button>
+      </form>
+    </div>
+  </div>
