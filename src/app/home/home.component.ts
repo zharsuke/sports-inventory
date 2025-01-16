@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 import { ItemApiService } from '../service/item-api.service';
+import { AuthApiService } from '../service/auth-api.service';
 
 @Component({
   selector: 'app-home',
@@ -9,37 +9,35 @@ import { ItemApiService } from '../service/item-api.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  items: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
 
-  products: any;
-  items: any;
+  constructor(
+    private itemApiService: ItemApiService,
+    public authApiService: AuthApiService
+  ) { }
 
-  name = 'Angular';
-  imageUrl = 'https://angular.io/assets/images/logos/angular/angular.png';
-
-  form = new FormGroup({
-    username: new FormControl('', Validators.required),
-    email: new FormControl('', [Validators.required, Validators.email]),
-  });
-
-  constructor(private itemApiService: ItemApiService) { }
-
-  onSubmit() {
-    console.log('Form Submitted!', this.form.value);
-    if (this.form.invalid) {
-      console.log('Form is invalid!');
-      alert('Form is invalid!');
-    } else {
-      console.log('Form is valid!');
-      alert('Form is valid!');
+  async loadItems(page: number) {
+    try {
+      this.currentPage = page;
+      const response: any = await firstValueFrom(
+        this.itemApiService.getItems(page, this.itemsPerPage)
+      );
+      this.items = response;
+    } catch (error) {
+      console.error('Error loading items:', error);
     }
   }
 
   async ngOnInit() {
-    console.log('HomeComponent initialized');
-    const items = await firstValueFrom(this.itemApiService.getItems('items'));
-    this.items = items;
-
-    console.log(this.items);
+    await this.loadItems(1);
   }
 
+  async onPageChange(newPage: number) {
+    if (newPage > 0) {
+      await this.loadItems(newPage);
+    }
+  }
 }

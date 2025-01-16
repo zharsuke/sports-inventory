@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       this.authApiService.login(email, password).subscribe({
         next: (response: any) => {
           console.log('Login successful', response);
-          localStorage.setItem('token', response.token);
+          localStorage.setItem('token', response.accessToken);
           this.router.navigate(['/']);
         },
         error: (error: any) => {
